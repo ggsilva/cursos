@@ -8,7 +8,7 @@ public class DesignPatterns {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		fail("Implementar");
 	}
 
 }
