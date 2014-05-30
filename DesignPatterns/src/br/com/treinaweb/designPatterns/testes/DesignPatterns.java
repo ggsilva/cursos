@@ -8,13 +8,20 @@ import br.com.treinaweb.designPatterns.creational.abstractFactory.AbstractFactor
 import br.com.treinaweb.designPatterns.creational.abstractFactory.Janela;
 import br.com.treinaweb.designPatterns.creational.abstractFactory.MSFactory;
 import br.com.treinaweb.designPatterns.creational.abstractFactory.MacOSFactory;
+import br.com.treinaweb.designPatterns.creational.builder.CarroBuilder;
+import br.com.treinaweb.designPatterns.creational.builder.GeradorVeiculos;
+import br.com.treinaweb.designPatterns.creational.builder.MotoBuilder;
+import br.com.treinaweb.designPatterns.creational.builder.Veiculo;
+import br.com.treinaweb.designPatterns.creational.builder.VeiculoBuilder;
 import br.com.treinaweb.designPatterns.creational.factoryMethod.AbstractCreator;
 import br.com.treinaweb.designPatterns.creational.factoryMethod.ConnectionLoggerCreate;
 import br.com.treinaweb.designPatterns.creational.factoryMethod.Logger;
 import br.com.treinaweb.designPatterns.creational.factoryMethod.ReadFileLoggerCreate;
 import br.com.treinaweb.designPatterns.creational.factoryMethod.WriteFileLoggerCreate;
+import br.com.treinaweb.designPatterns.creational.prototype.JanelaPrototype;
 import br.com.treinaweb.designPatterns.creational.simpleFactory.Banco;
 import br.com.treinaweb.designPatterns.creational.simpleFactory.BancoFactory;
+import br.com.treinaweb.designPatterns.creational.singleton.ConfigManager;
 
 public class DesignPatterns {
 
@@ -63,6 +70,66 @@ public class DesignPatterns {
 		janela.setTitle("Janela " + janela.getOS());
 		assertEquals("Titulo Janela MS", "Janela MS", janela.getTitle());
 		
+	}
+	
+	@Test
+	public void utilizaBuilder() {
+		VeiculoBuilder veiculoBuilder;
+		GeradorVeiculos gerador;
+		Veiculo veiculo;
+		
+		veiculoBuilder = new CarroBuilder();
+		gerador = new GeradorVeiculos(veiculoBuilder);
+		veiculo = gerador.gerarVeiculo();
+		assertEquals("Tipo VeiculoBuilder", veiculoBuilder.getVeiculoBuilder(), "Carro");
+		assertEquals("Tipo Veiculo", veiculo.getVeiculo(), "Carro");
+		
+		veiculoBuilder = new MotoBuilder();
+		gerador = new GeradorVeiculos(veiculoBuilder);
+		veiculo = gerador.gerarVeiculo();
+		assertEquals("Tipo VeiculoBuilder", veiculoBuilder.getVeiculoBuilder(), "Moto");
+		assertEquals("Tipo Veiculo", veiculo.getVeiculo(), "Moto");
+	}
+	
+	@Test
+	public void utilizaPrototype() {
+		JanelaPrototype janela1 = new JanelaPrototype();
+		janela1.setTitulo("Janela 1");
+		janela1.setAltura(400);
+		janela1.setLargura(600);
+		
+		JanelaPrototype janela2 = janela1.clone();
+		janela2.setTitulo("Janela 2");
+		janela2.setAltura(600);
+		janela2.setLargura(900);
+		
+		assertEquals("Titulo Janela 1", "Janela 1", janela1.getTitulo());
+		assertEquals("Titulo Janela 2", "Janela 2", janela2.getTitulo());
+		
+		assertEquals("Altura Janela 1", 400, janela1.getAltura());
+		assertEquals("Altura Janela 2", 600, janela2.getAltura());
+		
+		assertEquals("Largura Janela 1", 600, janela1.getLargura());
+		assertEquals("Largura Janela 2", 900, janela2.getLargura());
+		
+	}
+	
+	@Test
+	public void utilizaSingleton() {
+		String serverName = ConfigManager.getInstance().getServerName();
+
+		assertEquals("Name Server", "Server", serverName);
+		
+		serverName = ConfigManager.getInstance("ServerName2").getServerName();
+
+		assertEquals("Name Server", "Server", serverName);
+		
+	}
+	 
+	@Test
+	public void utilizaMultiton() {
+		String gui = null;
+		assertEquals("Name Server", "Serve r", gui);
 	}
 
 }
