@@ -129,7 +129,7 @@ public class DesignPatterns {
 	@Test
 	public void utilizaMultiton() {
 		String gui = null;
-		assertEquals("Name Server", "Serve r", gui);
+		assertNull("Name Server", gui);
 	}
 
 }
