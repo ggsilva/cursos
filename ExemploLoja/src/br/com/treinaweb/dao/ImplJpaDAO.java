@@ -10,7 +10,7 @@ import javax.persistence.Persistence;
 
 public abstract class ImplJpaDAO<T, I extends Serializable> implements DAO<T, I> {
 
-	private static final String UNIT_NAME = "entidade";
+	private static final String UNIT_NAME = "entidades";
 	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
 
@@ -44,7 +44,8 @@ public abstract class ImplJpaDAO<T, I extends Serializable> implements DAO<T, I>
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> getAll(Class<T> classe) {
-		return (List<T>) getEntityManager().createQuery("select e from " + classe.getSimpleName() + " e");
+		List<T> list = (List<T>) getEntityManager().createQuery("select e from " + classe.getSimpleName() + " e").getResultList();
+		return list;
 	}
 
 	@Override
