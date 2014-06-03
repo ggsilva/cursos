@@ -6,6 +6,7 @@
 <t:template>
 	<jsp:attribute name="title">Detalhes de  <c:out value="${categoria.nome}"/> </jsp:attribute>
 	<jsp:body>
+		<c:set var="idcategoria" value="${categoria.idCategoria}" scope="session" />
 		<article>
 			<fieldset>
 				<legend>Dados Categoria</legend>
@@ -25,7 +26,8 @@
 			<h3>Opções</h3>
 			<p>Para mais ações clique em: </p>
 			<ul>
-				<li><a href="Categoria?cmd=edit?id=${categoria.idCategoria}">Alterar</a></li>
+				<li><a href="Categoria?cmd=edit&id=${categoria.idCategoria}">Alterar</a></li>
+				<li><a href="Categoria?cmd=delete" onclick="return confirm('Tem certeza que gostaria de excluir essa categoria?');">Excluir</a></li>
 			</ul>
 		</aside>
 	</jsp:body>
