@@ -19,6 +19,9 @@ import br.com.treinaweb.designPatterns.creational.factoryMethod.Logger;
 import br.com.treinaweb.designPatterns.creational.factoryMethod.ReadFileLoggerCreate;
 import br.com.treinaweb.designPatterns.creational.factoryMethod.WriteFileLoggerCreate;
 import br.com.treinaweb.designPatterns.creational.multiton.Camera;
+import br.com.treinaweb.designPatterns.creational.objectPool.Funcionario;
+import br.com.treinaweb.designPatterns.creational.objectPool.FuncionarioPool;
+import br.com.treinaweb.designPatterns.creational.objectPool.Pool;
 import br.com.treinaweb.designPatterns.creational.prototype.JanelaPrototype;
 import br.com.treinaweb.designPatterns.creational.simpleFactory.Banco;
 import br.com.treinaweb.designPatterns.creational.simpleFactory.BancoFactory;
@@ -134,6 +137,21 @@ public class DesignPatterns {
 		
 		Camera cam2 = Camera.getInstance(4321);
 		assertEquals("Localização da Câmera", "Right Store", cam2.getLocation());
+	}
+	 
+	@Test
+	public void utilizaObjectPool() {
+		Pool<Funcionario> funcionarioPool = new FuncionarioPool();
+
+		
+		assertEquals("Quantidade Funcionários", 3, funcionarioPool.availables());
+		
+		assertEquals("Primeiro Funcionário", "Guilherme Silva", funcionarioPool.acquire().getNome());
+		assertEquals("Primeiro Funcionário", "José Luiz da Silva", funcionarioPool.acquire().getNome());
+		assertEquals("Primeiro Funcionário", "Rodrigo Gabriel", funcionarioPool.acquire().getNome());
+		
+		assertEquals("Quantidade Funcionários", 0, funcionarioPool.availables());
+		
 	}
 
 }

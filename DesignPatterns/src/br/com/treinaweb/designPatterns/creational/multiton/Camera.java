@@ -31,7 +31,7 @@ public class Camera {
 		return hardwareId;
 	}
 
-	public void setHardwareId(long hardwareId) {
+	private void setHardwareId(long hardwareId) {
 		this.hardwareId = hardwareId;
 	}
 	
@@ -39,7 +39,7 @@ public class Camera {
 		return this.location;
 	}
 
-	public void setLocation(String location) {
+	private void setLocation(String location) {
 		this.location = location;
 	}
 
