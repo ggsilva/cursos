@@ -1,5 +1,5 @@
-package br.com.treinaweb.designPatterns.creational.prototype;
 
+package br.com.treinaweb.designPatterns.creational.prototype;
 public class JanelaPrototype implements Cloneable {
 	private String titulo;
 	private int altura;

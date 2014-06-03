@@ -18,6 +18,7 @@ import br.com.treinaweb.designPatterns.creational.factoryMethod.ConnectionLogger
 import br.com.treinaweb.designPatterns.creational.factoryMethod.Logger;
 import br.com.treinaweb.designPatterns.creational.factoryMethod.ReadFileLoggerCreate;
 import br.com.treinaweb.designPatterns.creational.factoryMethod.WriteFileLoggerCreate;
+import br.com.treinaweb.designPatterns.creational.multiton.Camera;
 import br.com.treinaweb.designPatterns.creational.prototype.JanelaPrototype;
 import br.com.treinaweb.designPatterns.creational.simpleFactory.Banco;
 import br.com.treinaweb.designPatterns.creational.simpleFactory.BancoFactory;
@@ -128,8 +129,11 @@ public class DesignPatterns {
 	 
 	@Test
 	public void utilizaMultiton() {
-		String gui = null;
-		assertNull("Name Server", gui);
+		Camera cam1 = Camera.getInstance(1234);
+		assertEquals("Localização da Câmera", "Left Store", cam1.getLocation());
+		
+		Camera cam2 = Camera.getInstance(4321);
+		assertEquals("Localização da Câmera", "Right Store", cam2.getLocation());
 	}
 
 }
