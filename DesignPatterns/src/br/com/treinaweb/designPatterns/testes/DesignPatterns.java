@@ -1,6 +1,9 @@
 package br.com.treinaweb.designPatterns.testes;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import org.junit.Test;
 
@@ -26,6 +29,8 @@ import br.com.treinaweb.designPatterns.creational.prototype.JanelaPrototype;
 import br.com.treinaweb.designPatterns.creational.simpleFactory.Banco;
 import br.com.treinaweb.designPatterns.creational.simpleFactory.BancoFactory;
 import br.com.treinaweb.designPatterns.creational.singleton.ConfigManager;
+import br.com.treinaweb.designPatterns.structural.adapter.ControleDePonto;
+import br.com.treinaweb.designPatterns.structural.adapter.FuncionarioAdapter;
 
 public class DesignPatterns {
 
@@ -132,17 +137,16 @@ public class DesignPatterns {
 	 
 	@Test
 	public void utilizaMultiton() {
-		Camera cam1 = Camera.getInstance(1234);
+		final Camera cam1 = Camera.getInstance(1234);
 		assertEquals("Localização da Câmera", "Left Store", cam1.getLocation());
 		
-		Camera cam2 = Camera.getInstance(4321);
+		final Camera cam2 = Camera.getInstance(4321);
 		assertEquals("Localização da Câmera", "Right Store", cam2.getLocation());
 	}
 	 
 	@Test
 	public void utilizaObjectPool() {
 		Pool<Funcionario> funcionarioPool = new FuncionarioPool();
-
 		
 		assertEquals("Quantidade Funcionários", 3, funcionarioPool.availables());
 		
@@ -151,7 +155,46 @@ public class DesignPatterns {
 		assertEquals("Primeiro Funcionário", "Rodrigo Gabriel", funcionarioPool.acquire().getNome());
 		
 		assertEquals("Quantidade Funcionários", 0, funcionarioPool.availables());
+	}
+	 
+	@Test
+	public void utilizaAdapter() {
+		final FuncionarioAdapter funcionario = new FuncionarioAdapter("Guilherme Silva");
+		ControleDePonto controleDePonto;
+		boolean isEntrada = true;
+		boolean isSaida = false;		
 		
+		controleDePonto = new ControleDePonto();
+		
+		try {
+			assertEquals("Hora de Entrada Antiga", getMsgRegistro(funcionario, isEntrada), controleDePonto.registraEntrada(funcionario));
+			Thread.sleep(2000);
+			assertEquals("Hora de Saída Antiga", getMsgRegistro(funcionario, isSaida), controleDePonto.registraSaida(funcionario));
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		//controleDePonto = new ControleDePontoAdapter();
+		
+		try {
+			assertEquals("Hora de Entrada Antiga", getMsgRegistro(funcionario, isEntrada), controleDePonto.registraEntrada(funcionario));
+			Thread.sleep(2000);
+			assertEquals("Hora de Saída Antiga", getMsgRegistro(funcionario, isSaida), controleDePonto.registraSaida(funcionario));
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	private String getMsgRegistro(FuncionarioAdapter funcionario, boolean isEntrada) {
+		if(isEntrada)
+			return "Entrada: " + funcionario.getNome() + " às " + getHoraRegistro();
+		else
+			return "Saída: " + funcionario.getNome() + " às " + getHoraRegistro();
+	}
+
+	private String getHoraRegistro() {
+		return new SimpleDateFormat("dd/MM/yyyy H:m").format(Calendar.getInstance().getTime());
 	}
 
 }
