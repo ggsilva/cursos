@@ -30,6 +30,7 @@ import br.com.treinaweb.designPatterns.creational.simpleFactory.Banco;
 import br.com.treinaweb.designPatterns.creational.simpleFactory.BancoFactory;
 import br.com.treinaweb.designPatterns.creational.singleton.ConfigManager;
 import br.com.treinaweb.designPatterns.structural.adapter.ControleDePonto;
+import br.com.treinaweb.designPatterns.structural.adapter.ControleDePontoAdapter;
 import br.com.treinaweb.designPatterns.structural.adapter.FuncionarioAdapter;
 
 public class DesignPatterns {
@@ -161,8 +162,8 @@ public class DesignPatterns {
 	public void utilizaAdapter() {
 		final FuncionarioAdapter funcionario = new FuncionarioAdapter("Guilherme Silva");
 		ControleDePonto controleDePonto;
-		boolean isEntrada = true;
-		boolean isSaida = false;		
+		final boolean isEntrada = true;
+		final boolean isSaida = false;		
 		
 		controleDePonto = new ControleDePonto();
 		
@@ -174,12 +175,12 @@ public class DesignPatterns {
 			e.printStackTrace();
 		}
 		
-		//controleDePonto = new ControleDePontoAdapter();
+		controleDePonto = new ControleDePontoAdapter();
 		
 		try {
-			assertEquals("Hora de Entrada Antiga", getMsgRegistro(funcionario, isEntrada), controleDePonto.registraEntrada(funcionario));
+			assertEquals("Hora de Entrada Antiga", "Nova " + getMsgRegistro(funcionario, isEntrada), controleDePonto.registraEntrada(funcionario));
 			Thread.sleep(2000);
-			assertEquals("Hora de Saída Antiga", getMsgRegistro(funcionario, isSaida), controleDePonto.registraSaida(funcionario));
+			assertEquals("Hora de Saída Antiga", "Nova " + getMsgRegistro(funcionario, isSaida), controleDePonto.registraSaida(funcionario));
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
