@@ -7,11 +7,11 @@ public class Eventos {
 	
 	public Eventos() {}
 
-	public int getIdEvento() {
+	public int getIdevento() {
 		return idevento;
 	}
 
-	public void setIdEvento(int idEvento) {
+	public void setIdevento(int idEvento) {
 		this.idevento = idEvento;
 	}
 

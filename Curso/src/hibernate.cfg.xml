@@ -1,11 +1,8 @@
 <!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
-
 <hibernate-configuration>
-
     <session-factory>
-
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.url">jdbc:mysql://127.0.0.1/loja</property>
@@ -27,9 +24,8 @@
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">false</property>
 
-
-        <mapping resource="br/com/treinaweb/parte1/Categoria.hbm.xml"/>
-
+		<mapping resource="br/com/treinaweb/parte1/Categoria.hbm.xml"/>
+		<mapping resource="br/com/treinaweb/parte1/Eventos.hbm.xml"/>
+		<mapping resource="br/com/treinaweb/parte1/Pessoas.hbm.xml"/>
     </session-factory>
-
 </hibernate-configuration>
