@@ -15,7 +15,7 @@
   <h3></h3>
   <%
     GerenciadorEventos ge= new GerenciadorEventos();
-    List lista = ge.listarEventos();
+    List<Eventos> lista = ge.listarEventos();
     String tabela = "";
     tabela += "<table align='center' border='1'>";
     tabela += "<tr><td><b>id</b></td><td><b>Evento</b></td><td><b>Data</b></td></tr>";
