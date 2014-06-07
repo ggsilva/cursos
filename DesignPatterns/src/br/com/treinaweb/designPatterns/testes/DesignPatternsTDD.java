@@ -1,9 +1,9 @@
 package br.com.treinaweb.designPatterns.testes;
 
+import static br.com.treinaweb.designPatterns.testes.DesignPatternsTDDSupport.getMsgReciboHTML;
+import static br.com.treinaweb.designPatterns.testes.DesignPatternsTDDSupport.getMsgReciboTXT;
+import static br.com.treinaweb.designPatterns.testes.DesignPatternsTDDSupport.getMsgRegistro;
 import static org.junit.Assert.assertEquals;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import org.junit.Test;
 
@@ -32,8 +32,12 @@ import br.com.treinaweb.designPatterns.creational.singleton.ConfigManager;
 import br.com.treinaweb.designPatterns.structural.adapter.ControleDePonto;
 import br.com.treinaweb.designPatterns.structural.adapter.ControleDePontoAdapter;
 import br.com.treinaweb.designPatterns.structural.adapter.FuncionarioAdapter;
+import br.com.treinaweb.designPatterns.structural.bridge.GeradorDeArquivo;
+import br.com.treinaweb.designPatterns.structural.bridge.GeradorDeArquivoHTML;
+import br.com.treinaweb.designPatterns.structural.bridge.GeradorDeArquivoTXT;
+import br.com.treinaweb.designPatterns.structural.bridge.Recibo;
 
-public class DesignPatterns {
+public class DesignPatternsTDD {
 
 	@Test
 	public void utilizaSimpleFactory() {
@@ -186,16 +190,22 @@ public class DesignPatterns {
 		}
 		
 	}
+	 
+	@Test
+	public void utilizaBridge() {
+		Recibo recibo;
+		GeradorDeArquivo geradorDeArquivo;
+		final String empresa = "MeCaso";
+		final String favorecido = "Guilherme Silva";
+		final double valor = Math.pow(10, 6);
+		
+		geradorDeArquivo = new GeradorDeArquivoTXT();		
+		recibo = new Recibo(empresa, favorecido, valor, geradorDeArquivo);
+		assertEquals("Arquivo Texto", getMsgReciboTXT(empresa, favorecido, valor), recibo.gerarArquivo());
 
-	private String getMsgRegistro(FuncionarioAdapter funcionario, boolean isEntrada) {
-		if(isEntrada)
-			return "Entrada: " + funcionario.getNome() + " às " + getHoraRegistro();
-		else
-			return "Saída: " + funcionario.getNome() + " às " + getHoraRegistro();
-	}
-
-	private String getHoraRegistro() {
-		return new SimpleDateFormat("dd/MM/yyyy H:m").format(Calendar.getInstance().getTime());
+		geradorDeArquivo = new GeradorDeArquivoHTML();		
+		recibo = new Recibo(empresa, favorecido, valor, geradorDeArquivo);
+		assertEquals("Arquivo HTML", getMsgReciboHTML(empresa, favorecido, valor), recibo.gerarArquivo());
 	}
 
 }
