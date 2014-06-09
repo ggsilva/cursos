@@ -1,7 +1,6 @@
 package br.com.treinaweb.parte1;
 
 import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -14,11 +13,9 @@ public class GerenciadorEventos {
 		try{			
 			Session session = getSessionFactory();
 			Transaction transaction = session.beginTransaction();
-			
 			Eventos eventos = new Eventos();
 			eventos.setData(data);
 			eventos.setEvento(evento);
-			
 			session.saveOrUpdate(eventos);
 			transaction.commit();
 			session.close();
@@ -28,14 +25,28 @@ public class GerenciadorEventos {
 		}
 	}
 
-	public List listarEventos(){
+	@SuppressWarnings("unchecked")
+	public List<Eventos> listarEventos(){
 		Session session = getSessionFactory();
 		session.beginTransaction();
-		List list = session.createQuery("from Eventos").list();
+		List<Eventos> list = session.createQuery("from Eventos").list();
 		session.getTransaction().commit();
-		if (list.size() > 0)
-			list.remove(0);
 		return list;
+	}
+	
+	public void adicionarPessoaEvento(int idPessoa, int idEvento) throws Exception {
+		Session session = getSessionFactory();
+		session.beginTransaction();
+		Eventos evento = (Eventos) session.load(Eventos.class, idEvento);
+		((Pessoas) session.load(Pessoas.class, idPessoa)).getEventos().add(evento);
+		session.getTransaction().commit();
+	}
+	
+	public void adicionarEmailPessoa(int idPessoa, String email) throws Exception {
+		Session session = getSessionFactory();
+		session.beginTransaction();
+		((Pessoas) session.load(Pessoas.class, idPessoa)).getEmails().add(email);
+		session.getTransaction().commit();
 	}
 	
 	private Session getSessionFactory() {

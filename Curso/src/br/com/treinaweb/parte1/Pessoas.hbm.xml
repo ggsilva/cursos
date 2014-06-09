@@ -9,5 +9,13 @@
     <property name="idade" />
     <property name="primeiroNome" />
     <property name="ultimoNome" />
+    <set name="eventos" table="PessoaEventos" >
+    	<key column="idPessoa" />
+    	<many-to-many column="idEvento" class="br.com.treinaweb.parte1.Eventos"/>
+    </set>
+    <set name="emails" table="PessoasEmails" >
+    	<key column="idPessoa" />
+    	<element column="email" type="string"/>
+    </set>
   </class>
 </hibernate-mapping>
