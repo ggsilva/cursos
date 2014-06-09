@@ -36,6 +36,9 @@ import br.com.treinaweb.designPatterns.structural.bridge.GeradorDeArquivo;
 import br.com.treinaweb.designPatterns.structural.bridge.GeradorDeArquivoHTML;
 import br.com.treinaweb.designPatterns.structural.bridge.GeradorDeArquivoTXT;
 import br.com.treinaweb.designPatterns.structural.bridge.Recibo;
+import br.com.treinaweb.designPatterns.structural.composite.Trecho;
+import br.com.treinaweb.designPatterns.structural.composite.TrechoAndando;
+import br.com.treinaweb.designPatterns.structural.composite.TrechoDeCarro;
 
 public class DesignPatternsTDD {
 
@@ -206,6 +209,23 @@ public class DesignPatternsTDD {
 		geradorDeArquivo = new GeradorDeArquivoHTML();		
 		recibo = new Recibo(empresa, favorecido, valor, geradorDeArquivo);
 		assertEquals("Arquivo HTML", getMsgReciboHTML(empresa, favorecido, valor), recibo.gerarArquivo());
+	}
+	 
+	@Test
+	public void utilizaComposite() {
+		Trecho trecho1 = new TrechoAndando("Vá até o cruzamento da Av. Rebouças com a Av. Brigadeiro Faria Lima.", 500);
+		Trecho trecho2 = new TrechoDeCarro("Vá até o cruzamento da Av. Brigadeiro Faria Lima com a Av. Cidade Jardim.", 1500);
+		Trecho trecho3 = new TrechoDeCarro("Vire à direita na Marginal Pinheiros.", 500);
+		
+		Caminho caminho1 = new Caminho();
+		caminho1.adiciona(trecho1);
+		caminho1.adiciona(trecho2);
+		assertEquals("Impressão Caminho 1", DesignPatternsTDDSupport.MSG_CAMINHO_1, caminho1.imprime());
+		
+		Caminho caminho2 = new Caminho();
+		caminho2.adiciona(caminho1);
+		caminho2.adiciona(trecho3);
+		assertEquals("Impressão Caminho 1", DesignPatternsTDDSupport.MSG_CAMINHO_2, caminho2.imprime());
 	}
 
 }

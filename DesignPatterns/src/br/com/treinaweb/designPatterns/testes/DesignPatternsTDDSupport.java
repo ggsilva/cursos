@@ -7,6 +7,9 @@ import br.com.treinaweb.designPatterns.structural.adapter.FuncionarioAdapter;
 
 public class DesignPatternsTDDSupport {
 
+	public static final String MSG_CAMINHO_1 = "Vá andando: Vá até o cruzamento da Av. Rebouças com a Av. Brigadeiro Faria Lima. A distância percorrida será de 500.0 metros. Vá de Carro: Vá até o cruzamento da Av. Brigadeiro Faria Lima com a Av. Cidade Jardim. A distância percorrida será de 1500.0 metros.";
+	public static final String MSG_CAMINHO_2 = "Vá andando: Vá até o cruzamento da Av. Rebouças com a Av. Brigadeiro Faria Lima. A distância percorrida será de 500.0 metros. Vá de Carro: Vá até o cruzamento da Av. Brigadeiro Faria Lima com a Av. Cidade Jardim. A distância percorrida será de 1500.0 metros. Vá de Carro: Vire à direita na Marginal Pinheiros. A distância percorrida será de 500.0 metros.";
+
 	public static String getMsgRegistro(FuncionarioAdapter funcionario, boolean isEntrada) {
 		if(isEntrada)
 			return "Entrada: " + funcionario.getNome() + " às " + getHoraRegistro();
