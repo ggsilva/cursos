@@ -39,6 +39,8 @@ import br.com.treinaweb.designPatterns.structural.bridge.Recibo;
 import br.com.treinaweb.designPatterns.structural.composite.Trecho;
 import br.com.treinaweb.designPatterns.structural.composite.TrechoAndando;
 import br.com.treinaweb.designPatterns.structural.composite.TrechoDeCarro;
+import br.com.treinaweb.designPatterns.structural.decorator.Emissor;
+import br.com.treinaweb.designPatterns.structural.decorator.EmissorBasico;
 
 public class DesignPatternsTDD {
 
@@ -174,23 +176,13 @@ public class DesignPatternsTDD {
 		
 		controleDePonto = new ControleDePonto();
 		
-		try {
-			assertEquals("Hora de Entrada Antiga", getMsgRegistro(funcionario, isEntrada), controleDePonto.registraEntrada(funcionario));
-			Thread.sleep(2000);
-			assertEquals("Hora de Saída Antiga", getMsgRegistro(funcionario, isSaida), controleDePonto.registraSaida(funcionario));
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		assertEquals("Hora de Entrada Antiga", getMsgRegistro(funcionario, isEntrada), controleDePonto.registraEntrada(funcionario));
+		assertEquals("Hora de Saída Antiga", getMsgRegistro(funcionario, isSaida), controleDePonto.registraSaida(funcionario));
 		
 		controleDePonto = new ControleDePontoAdapter();
 		
-		try {
-			assertEquals("Hora de Entrada Antiga", "Nova " + getMsgRegistro(funcionario, isEntrada), controleDePonto.registraEntrada(funcionario));
-			Thread.sleep(2000);
-			assertEquals("Hora de Saída Antiga", "Nova " + getMsgRegistro(funcionario, isSaida), controleDePonto.registraSaida(funcionario));
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		assertEquals("Hora de Entrada Antiga", "Nova " + getMsgRegistro(funcionario, isEntrada), controleDePonto.registraEntrada(funcionario));
+		assertEquals("Hora de Saída Antiga", "Nova " + getMsgRegistro(funcionario, isSaida), controleDePonto.registraSaida(funcionario));
 		
 	}
 	 
@@ -226,6 +218,18 @@ public class DesignPatternsTDD {
 		caminho2.adiciona(caminho1);
 		caminho2.adiciona(trecho3);
 		assertEquals("Impressão Caminho 1", DesignPatternsTDDSupport.MSG_CAMINHO_2, caminho2.imprime());
+	}
+	 
+	@Test
+	public void utilizaDecorator() {
+		final String mensagem = "Mensagem Padrão.";
+		Emissor emissor;
+		
+		emissor = new EmissorBasico();
+		assertEquals("Mensagem Basica enviada", "Enviando uma Mensagem: Mensagem Padrão.", emissor.envia(mensagem));
+		
+//		emissor = new EmissorComCriptografia(new EmissorBasico());
+//		assertEquals("Mensagem Basica enviada", "Enviando uma Mensagem: Mensagem Padrão.", emissor.envia(mensagem));
 	}
 
 }
