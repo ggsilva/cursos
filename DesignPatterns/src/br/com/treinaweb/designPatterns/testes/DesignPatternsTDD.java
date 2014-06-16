@@ -41,6 +41,8 @@ import br.com.treinaweb.designPatterns.structural.composite.TrechoAndando;
 import br.com.treinaweb.designPatterns.structural.composite.TrechoDeCarro;
 import br.com.treinaweb.designPatterns.structural.decorator.Emissor;
 import br.com.treinaweb.designPatterns.structural.decorator.EmissorBasico;
+import br.com.treinaweb.designPatterns.structural.decorator.EmissorComCriptografia;
+import br.com.treinaweb.designPatterns.structural.decorator.EmissorComDescriptografia;
 
 public class DesignPatternsTDD {
 
@@ -228,8 +230,11 @@ public class DesignPatternsTDD {
 		emissor = new EmissorBasico();
 		assertEquals("Mensagem Basica enviada", "Enviando uma Mensagem: Mensagem Padrão.", emissor.envia(mensagem));
 		
-//		emissor = new EmissorComCriptografia(new EmissorBasico());
-//		assertEquals("Mensagem Basica enviada", "Enviando uma Mensagem: Mensagem Padrão.", emissor.envia(mensagem));
+		emissor = new EmissorComCriptografia(new EmissorBasico());
+		assertEquals("Mensagem Basica enviada", "Enviando uma Mensagem: .oãrdaP megasneM", emissor.envia(mensagem));
+		
+		emissor = new EmissorComDescriptografia(new EmissorComCriptografia(new EmissorBasico()));
+		assertEquals("Mensagem Basica enviada", "Enviando uma Mensagem: Mensagem Padrão.", emissor.envia(mensagem));
 	}
 
 }
