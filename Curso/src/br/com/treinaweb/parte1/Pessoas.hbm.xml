@@ -17,5 +17,8 @@
     	<key column="idPessoa" />
     	<element column="email" type="string"/>
     </set>
+    <query name="buscarPessoasPeloNome">
+		<![CDATA[from Pessoas p where p.primeiroNome = :nome]]>
+	</query>
   </class>
 </hibernate-mapping>

@@ -5,8 +5,11 @@ import static br.com.treinaweb.designPatterns.testes.DesignPatternsTDDSupport.ge
 import static br.com.treinaweb.designPatterns.testes.DesignPatternsTDDSupport.getMsgRegistro;
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
+import br.com.treinaweb.designPatterns.behavioral.Service;
 import br.com.treinaweb.designPatterns.creational.abstractFactory.AbstractFactory;
 import br.com.treinaweb.designPatterns.creational.abstractFactory.Janela;
 import br.com.treinaweb.designPatterns.creational.abstractFactory.MSFactory;
@@ -236,5 +239,13 @@ public class DesignPatternsTDD {
 		emissor = new EmissorComDescriptografia(new EmissorComCriptografia(new EmissorBasico()));
 		assertEquals("Mensagem Basica enviada", "Enviando uma Mensagem: Mensagem Padrão.", emissor.envia(mensagem));
 	}
-
+	 
+	@Test
+	public void testaService(){
+		try {
+			System.out.println(Service.getCotacao());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
