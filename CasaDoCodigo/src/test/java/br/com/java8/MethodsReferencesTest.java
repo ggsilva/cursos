@@ -1,6 +1,5 @@
 package br.com.java8;
 
-import static java.util.Comparator.naturalOrder;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
@@ -11,15 +10,27 @@ import org.junit.Test;
 public class MethodsReferencesTest {
 
 	@Test
-	public void ordenandoUmaListaDeStrings() {
+	public void tornaUsuariosModeradores() {
 		List<Usuario> usuarios = getListaDeUsuarios();
-		List<String> nomes = new ArrayList<String>();
+		StringBuilder builder = new StringBuilder();
+		usuarios.forEach(u -> builder.append(getUsuarioComStatusModerador(u)));
+		
+		assertEquals( "[Guilherme Silva, 15], false\n"
+			        + "[Alana Pereira, 20], false\n"
+			        + "[Noah Gabriel, 10], false\n", builder.toString());
+		
+		usuarios.forEach(Usuario::tornaModerador);
 
-		usuarios.forEach(u -> nomes.add(u.getNome()));
+		builder.setLength(0);
+		usuarios.forEach(u -> builder.append(getUsuarioComStatusModerador(u)));
 		
-		nomes.sort(naturalOrder());
-		
-		assertEquals("[Alana Pereira, Guilherme Silva, Noah Gabriel]", nomes.toString());
+		assertEquals( "[Guilherme Silva, 15], true\n"
+			        + "[Alana Pereira, 20], true\n"
+			        + "[Noah Gabriel, 10], true\n", builder.toString());
+	}
+
+	private String getUsuarioComStatusModerador(Usuario u) {
+		return u + ", " + u.isModerador() + "\n";
 	}
 
 	private List<Usuario> getListaDeUsuarios() {
