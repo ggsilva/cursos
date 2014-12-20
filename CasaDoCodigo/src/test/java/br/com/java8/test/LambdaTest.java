@@ -52,13 +52,10 @@ public class LambdaTest {
 	public void filtraUsuariosUtilizandoPredicate() {
 		List<Usuario> usuarios = getListaDeUsuarios();
 		
-		StringBuilder builder = new StringBuilder();
-		
 		Predicate<Usuario> p = u -> u.getPontos() > 10;
 		usuarios.removeIf(p);
-		usuarios.forEach((Consumer<Usuario>) u -> builder.append(u.getNome() + "\n"));
 		
-		assertEquals( "Noah Gabriel\n", builder.toString());
+		assertEquals("[[Noah Gabriel, 10]]", usuarios.toString());
 	}
 
 	@Test
@@ -68,12 +65,9 @@ public class LambdaTest {
 		Comparator<Usuario> comparator = (u1, u2) -> u1.getNome().compareTo(u2.getNome());	
 		usuarios.sort(comparator);
 		
-		StringBuilder builder = new StringBuilder();
-		usuarios.forEach((Consumer<Usuario>) u -> builder.append(u + "\n"));
-		
-		assertEquals( "[Alana Pereira, 20]\n"
-				    + "[Guilherme Silva, 15]\n"
-				    + "[Noah Gabriel, 10]\n", builder.toString());
+		assertEquals("[[Alana Pereira, 20], "
+				    + "[Guilherme Silva, 15], "
+				    + "[Noah Gabriel, 10]]", usuarios.toString());
 	}
 
 	@Test
@@ -83,12 +77,9 @@ public class LambdaTest {
 		Comparator<Usuario> comparator = comparing(u -> u.getPontos());	
 		usuarios.sort(comparator);
 		
-		StringBuilder builder = new StringBuilder();
-		usuarios.forEach(u -> builder.append(u + "\n"));
-		
-		assertEquals( "[Noah Gabriel, 10]\n"
-			        + "[Guilherme Silva, 15]\n"
-			        + "[Alana Pereira, 20]\n", builder.toString());
+		assertEquals("[[Noah Gabriel, 10], "
+			        + "[Guilherme Silva, 15], "
+			        + "[Alana Pereira, 20]]", usuarios.toString());
 	}
 
 	@Test
