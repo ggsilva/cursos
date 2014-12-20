@@ -1,6 +1,7 @@
 package br.com.java8;
 
 import static java.util.Comparator.comparing;
+import static java.util.Comparator.comparingInt;
 import static java.util.Comparator.naturalOrder;
 import static org.junit.Assert.*;
 
@@ -8,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.ToIntFunction;
 
 import org.junit.Test;
 
@@ -76,11 +79,11 @@ public class LambdaTest {
 	public void ordenandoPorPontosUtilizandoComparatorComMetodoEstaticoELambda() {
 		List<Usuario> usuarios = getListaDeUsuarios();
 
-		Comparator<Usuario> comparator = Comparator.comparing(u -> u.getPontos());	
+		Comparator<Usuario> comparator = comparing(u -> u.getPontos());	
 		usuarios.sort(comparator);
 		
 		StringBuilder builder = new StringBuilder();
-		usuarios.forEach((Consumer<Usuario>) u -> builder.append(u + "\n"));
+		usuarios.forEach(u -> builder.append(u + "\n"));
 		
 		assertEquals( "[Noah Gabriel, 10]\n"
 			        + "[Guilherme Silva, 15]\n"
@@ -96,7 +99,39 @@ public class LambdaTest {
 		
 		nomes.sort(naturalOrder());
 		
-		assertEquals( "[Alana Pereira, Guilherme Silva, Noah Gabriel]", nomes.toString());
+		assertEquals("[Alana Pereira, Guilherme Silva, Noah Gabriel]", nomes.toString());
+	}
+	
+	@Test
+	public void ordenandoPorPontosComAutoboxing() {
+		List<Usuario> usuarios = getListaDeUsuarios();
+
+		Function<Usuario, Integer> extraiPontos = u -> u.getPontos();
+		Comparator<Usuario> comparator = comparing(extraiPontos);	
+		usuarios.sort(comparator);
+		
+		StringBuilder builder = new StringBuilder();
+		usuarios.forEach(u -> builder.append(u + "\n"));
+		
+		assertEquals( "[Noah Gabriel, 10]\n"
+			        + "[Guilherme Silva, 15]\n"
+			        + "[Alana Pereira, 20]\n", builder.toString());
+	}
+	
+	@Test
+	public void ordenandoPorPontosUtilizandoInterfacesEquivalentesAoAutoboxing() {
+		List<Usuario> usuarios = getListaDeUsuarios();
+
+		ToIntFunction<Usuario> extraiPontos = u -> u.getPontos();
+		Comparator<Usuario> comparator = comparingInt(extraiPontos);	
+		usuarios.sort(comparator);
+		
+		StringBuilder builder = new StringBuilder();
+		usuarios.forEach(u -> builder.append(u + "\n"));
+		
+		assertEquals( "[Noah Gabriel, 10]\n"
+			        + "[Guilherme Silva, 15]\n"
+			        + "[Alana Pereira, 20]\n", builder.toString());
 	}
 
 	private List<Usuario> getListaDeUsuarios() {
