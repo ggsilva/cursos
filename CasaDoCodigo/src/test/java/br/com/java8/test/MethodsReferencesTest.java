@@ -1,11 +1,14 @@
-package br.com.java8;
+package br.com.java8.test;
+
+import static br.com.java8.support.UsuarioSupport.getListaDeUsuarios;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
+import br.com.java8.Usuario;
 
 public class MethodsReferencesTest {
 
@@ -33,11 +36,4 @@ public class MethodsReferencesTest {
 		return u + ", " + u.isModerador() + "\n";
 	}
 
-	private List<Usuario> getListaDeUsuarios() {
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		usuarios.add(new Usuario("Guilherme Silva", 15));
-		usuarios.add(new Usuario("Alana Pereira", 20));
-		usuarios.add(new Usuario("Noah Gabriel", 10));
-		return usuarios;
-	}
 }

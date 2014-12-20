@@ -1,8 +1,10 @@
-package br.com.java8;
+package br.com.java8.test;
 
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+
+import br.com.java8.Validador;
 
 public class InterfaceFuncionalTest {
 
