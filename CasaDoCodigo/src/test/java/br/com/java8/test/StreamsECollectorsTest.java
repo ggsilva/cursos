@@ -19,7 +19,7 @@ import org.junit.Test;
 import br.com.java8.Fibonnaci;
 import br.com.java8.Usuario;
 
-public class StreamsECollectors {
+public class StreamsECollectorsTest {
 	
 	@Test
 	public void tornandoModeradoresOsDoisUsuariosComMaisPontos(){
@@ -208,10 +208,10 @@ public class StreamsECollectors {
 	@Test
 	public void gerandoASequenciaDeFibonacci_RecuperandoOPrimeiroMaiorOuIgualA100(){
 		int fibonacci = IntStream.generate(new Fibonnaci())
-			.filter(f -> f >= 144)
+			.filter(f -> f >= 100)
 			.findFirst()
 			.getAsInt();
 		
-		assertEquals(100, fibonacci);
+		assertEquals(144, fibonacci);
 	}
 }
