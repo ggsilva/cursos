@@ -1,13 +1,16 @@
 package br.com.java8.test;
 
+
 import static br.com.java8.support.UsuarioSupport.getListaDeUsuarios;
 import static java.util.Comparator.comparing;
 import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.toList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -16,7 +19,7 @@ import java.util.stream.IntStream;
 
 import org.junit.Test;
 
-import br.com.java8.Fibonnaci;
+import br.com.java8.Fibonacci;
 import br.com.java8.Usuario;
 
 public class StreamsECollectorsTest {
@@ -198,7 +201,7 @@ public class StreamsECollectorsTest {
 	@Test
 	public void gerandoASequenciaDeFibonacci_RecuperandoOsCincoPrimeirosNumeros(){
 		List<Integer> sequencia = new ArrayList<Integer>();
-		IntStream.generate(new Fibonnaci())
+		IntStream.generate(new Fibonacci())
 			.limit(5)
 			.forEach(sequencia::add);;
 				
@@ -207,11 +210,26 @@ public class StreamsECollectorsTest {
 	
 	@Test
 	public void gerandoASequenciaDeFibonacci_RecuperandoOPrimeiroMaiorOuIgualA100(){
-		int fibonacci = IntStream.generate(new Fibonnaci())
+		int fibonacci = IntStream.generate(new Fibonacci())
 			.filter(f -> f >= 100)
 			.findFirst()
 			.getAsInt();
 		
 		assertEquals(144, fibonacci);
+	}
+	
+	@Test
+	public void listaTodosOsArquivosDoDiretorio(){
+		List<Path> paths = null;
+		try {
+			paths = Files.list(Paths.get("./src/main/java/br/com/java8"))
+				.map(Path::getFileName)
+				.sorted(comparing(Path::getFileName))
+				.collect(toList());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		assertEquals("[Capitulo2.java, Fibonacci.java, Usuario.java, Validador.java]", paths.toString());
 	}
 }
