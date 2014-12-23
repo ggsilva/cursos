@@ -37,12 +37,9 @@ public class StreamsECollectorsTest {
 		
 		Collections.reverse(usuarios);
 		
-		List<Usuario> top2 = usuarios.subList(0, 2);
-		for (Usuario usuario : top2) {
+		for (Usuario usuario : usuarios.subList(0, 2)) {
 			usuario.tornaModerador();
 		}
-		
-		usuarios.subList(0, 2).forEach(u -> u.tornaModerador());
 		
 		assertTrue(usuarios.get(0).isModerador());
 		assertTrue(usuarios.get(1).isModerador());
@@ -203,7 +200,7 @@ public class StreamsECollectorsTest {
 		List<Integer> sequencia = new ArrayList<Integer>();
 		IntStream.generate(new Fibonacci())
 			.limit(5)
-			.forEach(sequencia::add);;
+			.forEach(sequencia::add);
 				
 		assertEquals("[0, 1, 1, 2, 3]", sequencia.toString());
 	}
