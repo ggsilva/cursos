@@ -1,4 +1,4 @@
-package br.com.java8.test;
+package br.com.java8;
 
 import static org.junit.Assert.assertTrue;
 

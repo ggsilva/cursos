@@ -1,4 +1,4 @@
-package br.com.java8.test;
+package br.com.java8;
 
 import static br.com.java8.support.UsuarioSupport.getListaDeUsuarios;
 import static java.util.Comparator.comparing;

@@ -1,4 +1,4 @@
-package br.com.java8.test;
+package br.com.java8;
 
 
 import static br.com.java8.support.UsuarioSupport.getListaDeUsuarios;
@@ -227,6 +227,6 @@ public class StreamsECollectorsTest {
 			e.printStackTrace();
 		}
 		
-		assertEquals("[Capitulo2.java, Fibonacci.java, Usuario.java, Validador.java]", paths.toString());
+		assertEquals("[Capitulo2.java, Fibonacci.java, Usuario.java, Validador.java, support]", paths.toString());
 	}
 }
